@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: client
+spec: 
+  replicas: 10
+  selector:
+    matchLabels:
+      app: client
+  minReadySeconds: 10
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client
+        image: paulkevany/a02_client

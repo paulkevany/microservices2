@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metaData:
+  name: webclient
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: webclient
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels: 
+        app: webclient
+    spec:
+      containers:
+      - name: webclient
+        image: paulkevany/a02_webclient
+        ports:
+        - containerPort: 5000

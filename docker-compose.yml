@@ -1,0 +1,27 @@
+version: '3' 
+services: 
+  server: 
+    build: 
+      context: ./twitter-server 
+      dockerfile: Server.Dockerfile 
+    ports:  
+      - "50051:50051" 
+  client: 
+    build: 
+      context: ./twitter-client 
+      dockerfile: Client.Dockerfile 
+    depends_on:
+      - "server" 
+    command: ["./wait-for-it.sh", "greeter_server:50051", "--", "python", "greeter_client.py"]
+  redis: 
+    image: redis:alpine 
+    ports:
+      - "6379:6379" 
+  webclient: 
+    build:
+      context: ./twitter-web-client
+      dockerfile: Webclient.Dockerfile
+    ports: 
+      - "8080:5000"
+    depends_on:
+      - "redis"

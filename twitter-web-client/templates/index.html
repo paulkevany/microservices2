@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <div>
+      Total Tweets: {{totalTweets}}
+    </div>
+    <table border=1>
+      <tr>
+        {% autoescape false %}
+        <td>{{message}}</td>
+        <td>Longest word is: {{longestWord}}</td>
+        {% endautoescape %}
+      </tr>
+    </table>
+  </body>
+</html>
